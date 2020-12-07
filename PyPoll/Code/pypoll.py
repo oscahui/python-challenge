@@ -8,11 +8,15 @@ count_li = 0
 count_tooley = 0
 
 pypoll_csv = os.path.join('..','Resources','election_data.csv')
+#open csv file
 with open(pypoll_csv, 'r') as csvfile:
     csvreader = csv.reader(csvfile, delimiter=',')
     header = next(csvreader)
     for data in csvreader:
+        #total counter
         count = count +1
+
+        #individual counter
         if (data[2]) == "Khan":
             count_khan = count_khan +1
         if (data[2]) == "Correy":
@@ -21,11 +25,15 @@ with open(pypoll_csv, 'r') as csvfile:
             count_li = count_li +1
         if (data[2]) == "O'Tooley":
             count_tooley = count_tooley +1
+
+    #precentage calculation
     per_khan = count_khan/count*100
     per_correy = count_correy/count*100
     per_li = count_li/count*100
     per_tooley = count_tooley/count*100
     list1 = (count_khan, count_correy, count_li,count_tooley)
+
+    #winner finder
     winner = max(list1)
     if winner == count_khan:
         winner_name = "Khan"
@@ -35,7 +43,8 @@ with open(pypoll_csv, 'r') as csvfile:
         inner_name = "Li"
     else:
         winner_name = "O'Tooley"
-            
+
+    #result display        
     print("Election Results")
     print("-----------------")
     print(f"Total Votes: {count}")
@@ -46,6 +55,8 @@ with open(pypoll_csv, 'r') as csvfile:
     print(f"O'Tooley: {round(per_tooley,2)}% ({count_tooley})")
     print("-----------------")
     print("Winner: "+winner_name)
+
+    #csv output
     output = os.path.join("..","Output","analysis.csv")
     with open(output, 'w') as csvfile:
         csvwriter = csv.writer(csvfile) 
